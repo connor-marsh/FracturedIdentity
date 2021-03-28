@@ -28,7 +28,7 @@ class Stage extends Object {
   }
 
   collision(a) {
-    // a is a moveable othisject or a player
+    // a is a moveable object or a player
     // top side
     if (a.pos.y + a.h > this.pos.y && a.pos.y + a.h < this.pos.y + 1 + a.vel.y && a.pos.x + a.w > this.pos.x && a.pos.x < this.pos.x + this.w) {
       a.grounded = true;
@@ -308,12 +308,51 @@ class PressurePlate extends Object {
 
 }
 
-class Barrel extends Object {
+class Barrel extends Default {
 
   constructor(x, y) {
     super(x, y-28, 18, 28, "Assets/barrel.png");
+    this.img = new Image();
+    this.img.src = "Assets/barrel.png";
+    this.vel = new Vector(0, 0);
   }
 
+  update(plane) {
+    this.pos.add(this.vel);
+    this.vel.mult(zero);
+  }
 
+  // I would love to have this inherit from the Stage collision somehow but I'm not sure how to efficiently do that while letting it move
+  collision(a) {
+    // a is a moveable object or a player
+    // top side
+    if (a.pos.y + a.h > this.pos.y && a.pos.y + a.h < this.pos.y + 1 + a.vel.y && a.pos.x + a.w > this.pos.x && a.pos.x < this.pos.x + this.w) {
+      a.grounded = true;
+      a.friction = this.friction;
+      a.vel.y = 0;
+      a.pos.y = this.pos.y - a.h;
+    }
+    // bottom side
+    if (a.pos.y < this.pos.y + this.h && a.pos.y > this.pos.y + this.h - 1 + a.vel.y && a.pos.x + a.w > this.pos.x && a.pos.x < this.pos.x + this.w) {
+      a.vel.y = 1;
+      a.pos.y = this.pos.y + this.h;
+    }
+    // right side
+    if (a.pos.x < this.pos.x + this.w && a.pos.x > this.pos.x + this.w + a.vel.x - 1 && a.pos.y < this.pos.y + this.h && a.pos.y + a.h > this.pos.y) {
+      a.vel.x = (this.vel.x + a.vel.x)*0.75;
+      this.vel.x = a.vel.x;
+      a.pos.x = this.pos.x + this.w;
+    }
+    // left side
+    if (a.pos.x + a.w > this.pos.x && a.pos.x + a.w < this.pos.x + a.vel.x + 1 && a.pos.y < this.pos.y + this.h && a.pos.y + a.h > this.pos.y) {
+      a.vel.x = (this.vel.x + a.vel.x)*0.75;
+      this.vel.x = a.vel.x;
+      a.pos.x = this.pos.x - a.w;
+    }
+  }
+
+  draw() {
+    ctx.drawImage(this.img, this.pos.x, this.pos.y, this.w, this.h);
+  }
 
 }

@@ -21,7 +21,7 @@ var levels = [
     gen: function () {
       var levelNum = 0;
       var objects1 = [new Default(50, 500, 400, 200, "green", new Vector(1, 0)), new PhasedIn(450, 520, 240, 100, 0), new PlaneSwitch(80, 500), new Desk(300, 500), new Shelf(240, 500), new TimerSwitch(100, 450, [], 2), new PressurePlate(350, 500, 0)];
-      var objects2 = [new Default(50, 200, 400, 100, "green", new Vector(1, 0)), new Default(460, 500, 300, 50, "green", new Vector(1, 0)), new PlaneSwitch(80, 200), new PlaneSwitch(560, 500), new Platform(470, 400, 100, 5, "Assets/platform.png", new Vector(1, 0)), new PhaseLever(700, 500, 0)];
+      var objects2 = [new Default(50, 200, 400, 100, "green", new Vector(1, 0)), new Default(460, 500, 300, 50, "green", new Vector(1, 0)), new PlaneSwitch(80, 200), new PlaneSwitch(560, 500), new Platform(470, 400, 100, 5, "Assets/platform.png", new Vector(1, 0)), new PressurePlate(550, 500, 0), new Barrel(600, 500), new PhaseLever(700, 500, 0)];
       objects1[5].linkedObjects.push(objects2[objects2.length-1]);
       var texts1 = [];
       var texts2 = [];
