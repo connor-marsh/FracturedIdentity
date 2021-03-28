@@ -16,7 +16,7 @@ function Player(x, y, img, keybinds) {
   this.SPEED = 4;
   this.JUMP_POWER = 9;
   this.friction = new Vector(0, 0);
-  this.interactable = undefined;
+  this.interactables = [];
   this.grounded = false;
   this.keybinds = keybinds;
 
@@ -72,17 +72,24 @@ function Player(x, y, img, keybinds) {
     }
 
     // reset properties that depend on collision before running collision
-    this.interactable = undefined;
+    this.interactables = [];
     //this.friction = zero;
     // collision
     for (object of plane.objects) {
       object.collision(this);
     }
 
-    if (this.interact && typeof(this.interactable)!= "undefined") {
-      this.interactable.interact(plane);
-      this.interact = false;
+    if (this.interact) {
+      for (interactable of this.interactables) {
+        interactable.interact(plane);
+        this.interact = false;
+      }
+      
     }
+
+  }
+
+  this.collision = function(a) {
 
   }
 

@@ -6,7 +6,7 @@ class Object {
     this.bg = bg;
   }
 
-  update(player) {
+  update(plane) {
 
   }
 
@@ -155,7 +155,7 @@ class Interactable extends Object {
 
   collision(a) {
     if (super.collision(a)) {
-      a.interactable = this;
+      a.interactables.push(this);
       this.touchingPlayer = true;
     }
     else {
@@ -177,9 +177,9 @@ class Interactable extends Object {
 }
 
 class Goal extends Interactable {
-  
+
   constructor(x, y) {
-    super(x, y-80, 40, 80, "Assets/goal.png");
+    super(x, y - 80, 40, 80, "Assets/goal.png");
   }
 
   interact(plane) {
@@ -190,7 +190,7 @@ class Goal extends Interactable {
 class PlaneSwitch extends Interactable {
 
   constructor(x, y) {
-    super(x, y-55-40, 20, 40, "Assets/planeSwitch.png");
+    super(x, y - 55 - 40, 20, 40, "Assets/planeSwitch.png");
   }
 
   interact(plane) {
@@ -202,7 +202,7 @@ class PlaneSwitch extends Interactable {
 class PhaseLever extends Interactable {
 
   constructor(x, y, linkId) {
-    super(x, y-20, 20, 20, "Assets/phaseLever.png");
+    super(x, y - 20, 20, 20, "Assets/phaseLever.png");
     this.bg = "red";
     this.linkId = linkId; // This is the ID of the object in the plane's array of objects
     this.phased = false;
@@ -211,7 +211,7 @@ class PhaseLever extends Interactable {
   interact(plane) {
     var linkedObjects = [];
     for (object of plane.level.plane1.objects) {
-      if (object.linkId == this.linkId && typeof(object.phased) == "boolean") {
+      if (object.linkId == this.linkId && typeof (object.phased) == "boolean") {
         linkedObjects.push(object);
       }
     }
@@ -226,11 +226,94 @@ class PhaseLever extends Interactable {
   }
 
   draw() {
-    ctx.drawImage(this.img, this.phased?this.w:0, 0, this.w, this.h, this.pos.x, this.pos.y, this.w, this.h);
+    ctx.drawImage(this.img, this.phased ? this.w : 0, 0, this.w, this.h, this.pos.x, this.pos.y, this.w, this.h);
     if (this.touchingPlayer) {
       ctx.strokeStyle = "black";
       ctx.lineWidth = 1;
       ctx.strokeRect(this.pos.x, this.pos.y, this.w, this.h);
     }
   }
+}
+
+// Will interact with all of its linked objects
+class TimerSwitch extends Interactable {
+
+  constructor(x, y, linkedObjects, time) {
+    super(x, y, 20, 20, "Assets/flask.png");
+    this.time = time * fps;
+    this.timeLeft = this.time;
+    this.on = true;
+
+    this.linkedObjects = linkedObjects;
+  }
+
+  update(plane) {
+
+    if (this.on) {
+
+      this.timeLeft--;
+
+      if (this.timeLeft == 0) {
+        for (let i = 0; i < this.linkedObjects.length; i++) {
+          this.linkedObjects[i].interact(plane);
+        }
+        this.timeLeft = this.time;
+      }
+    }
+  }
+
+  interact(plane) {
+    this.on = !this.on;
+  }
+
+
+
+}
+
+class PressurePlate extends Object {
+
+  constructor(x, y, linkId) {
+    super(x, y-12, 30, 12, "pink");
+    this.linkId = linkId;
+    this.pressed = false;
+  }
+
+  update(plane) {
+    var beenPressed = false;
+    for (object of plane.objects) {
+      if (this.collision(object) && object != this) {
+        beenPressed = true;
+      }
+    }
+
+    if (beenPressed != this.pressed) {
+      var linkedObjects = [];
+      for (object of plane.level.plane1.objects) {
+        if (object.linkId == this.linkId && typeof (object.phased) == "boolean") {
+          linkedObjects.push(object);
+        }
+      }
+      for (object of plane.level.plane2.objects) {
+        if (object.linkId == this.linkId && typeof (object.phased) == "boolean") {
+          linkedObjects.push(object);
+        }
+      }
+      for (let i = 0; i < linkedObjects.length; i++) {
+        linkedObjects[i].phased = !linkedObjects[i].phased;
+      }
+      this.pressed = beenPressed;
+    }
+
+  }
+
+}
+
+class Barrel extends Object {
+
+  constructor(x, y) {
+    super(x, y-28, 18, 28, "Assets/barrel.png");
+  }
+
+
+
 }

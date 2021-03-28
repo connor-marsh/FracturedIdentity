@@ -62,7 +62,7 @@ class LevelScreen extends Screen {
 class PauseScreen extends Screen {
 
   constructor() {
-    super([new Text(width/2, 100, 30, "Paused")], [new Button(width/2-300, height/2-30-100, 100, 60, function(){screen=levelScreen; levelScreen.level = levels[levelNum].gen()}, "orange", new Text(0, 0, 14, "Restart")), new Button(width/2-50, height/2-30-80, 100, 60, function(){screen=levelScreen}, "orange", new Text(0, 0, 14, "Resume")), new Button(width/2-50, height/2-30, 100, 60, function(){screen=levelSelect}, "orange", new Text(0, 0, 14, "Level Select")), new Button(width/2-50, height/2-30 + 80, 100, 60, function(){screen=homeScreen}, "orange", new Text(0, 0, 14, "Home Screen"))], "Assets/plane1Background.png");
+    super([new Text(width/2, 100, 30, "Paused")], [new Button(width/2-300, height/2-30-100, 100, 60, function(){screen=levelScreen; levelScreen.level = levels[levelScreen.level.levelNum].gen()}, "orange", new Text(0, 0, 14, "Restart")), new Button(width/2-50, height/2-30-80, 100, 60, function(){screen=levelScreen}, "orange", new Text(0, 0, 14, "Resume")), new Button(width/2-50, height/2-30, 100, 60, function(){screen=levelSelect}, "orange", new Text(0, 0, 14, "Level Select")), new Button(width/2-50, height/2-30 + 80, 100, 60, function(){screen=homeScreen}, "orange", new Text(0, 0, 14, "Home Screen"))], "Assets/plane1Background.png");
     this.firstFrame = true;
   }
 
