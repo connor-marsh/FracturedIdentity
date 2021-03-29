@@ -27,7 +27,6 @@ for (let i = 0; i < levels.length; i++) {
   levelSelect.buttons.push(new Button(200 + (i-1)%5*100, 200 + 100*Math.floor((i-1)/5), 50, 50, function(){levelScreen.level = levels[i].gen(); screen=levelScreen;}, "orange", new Text(0, 0, 15, i)));
 }
 var levelScreen = new LevelScreen();
-var pauseScreen = new PauseScreen();
 var screen = homeScreen;
 
 function frame() {

@@ -45,11 +45,13 @@ class Stage extends Object {
     if (a.pos.x < this.pos.x + this.w && a.pos.x > this.pos.x + this.w + a.vel.x - 1 && a.pos.y < this.pos.y + this.h && a.pos.y + a.h > this.pos.y) {
       a.vel.x = 0;
       a.pos.x = this.pos.x + this.w;
+      a.animation = "Pushing";
     }
     // left side
     if (a.pos.x + a.w > this.pos.x && a.pos.x + a.w < this.pos.x + a.vel.x + 1 && a.pos.y < this.pos.y + this.h && a.pos.y + a.h > this.pos.y) {
       a.vel.x = 0;
       a.pos.x = this.pos.x - a.w;
+      a.animation = "Pushing";
     }
   }
 
@@ -315,7 +317,7 @@ class PressurePlate extends Object {
 class Barrel extends Default {
 
   constructor(x, y) {
-    super(x, y - 28, 18, 28, "Assets/barrel.png");
+    super(x, y - 39, 25, 39, "Assets/barrel.png");
     this.img = new Image();
     this.img.src = "Assets/barrel.png";
     this.vel = new Vector(0, 0);
@@ -386,11 +388,13 @@ class Barrel extends Default {
     if (a.pos.x < this.pos.x + this.w && a.pos.x > this.pos.x + this.w + a.vel.x - 10 && a.pos.y < this.pos.y + this.h && a.pos.y + a.h > this.pos.y) {
       this.vel.x = a.vel.x;
       a.pos.x = this.pos.x + this.w;
+      a.animation = "Pushing";
     }
     // left side
     if (a.pos.x + a.w > this.pos.x && a.pos.x + a.w < this.pos.x + a.vel.x + 10 && a.pos.y < this.pos.y + this.h && a.pos.y + a.h > this.pos.y) {
       this.vel.x = a.vel.x;
       a.pos.x = this.pos.x - a.w;
+      a.animation = "Pushing";
     }
   }
 
