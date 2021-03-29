@@ -154,12 +154,16 @@ class Interactable extends Object {
   }
 
   collision(a) {
-    if (super.collision(a)) {
-      a.interactables.push(this);
-      this.touchingPlayer = true;
-    }
-    else {
-      this.touchingPlayer = false;
+
+    if (typeof (a.interactables) != "undefined") {
+
+      if (super.collision(a)) {
+        a.interactables.push(this);
+        this.touchingPlayer = true;
+      }
+      else {
+        this.touchingPlayer = false;
+      }
     }
   }
 
@@ -273,7 +277,7 @@ class TimerSwitch extends Interactable {
 class PressurePlate extends Object {
 
   constructor(x, y, linkId) {
-    super(x, y-12, 30, 12, "pink");
+    super(x, y - 12, 30, 12, "pink");
     this.linkId = linkId;
     this.pressed = false;
   }
@@ -311,19 +315,60 @@ class PressurePlate extends Object {
 class Barrel extends Default {
 
   constructor(x, y) {
-    super(x, y-28, 18, 28, "Assets/barrel.png");
+    super(x, y - 28, 18, 28, "Assets/barrel.png");
     this.img = new Image();
     this.img.src = "Assets/barrel.png";
     this.vel = new Vector(0, 0);
+    this.acc = new Vector(0, 0);
+    this.grounded = false;
   }
 
   update(plane) {
+
+    // this.grounded = false;
+    // for (object of plane.objects) {
+    //   object.collision(this);
+    // }
+
+    // friction
+    if (this.grounded) {
+      this.acc.add(zero.static_mult(this.friction, new Vector(-sign(this.vel.x), -sign(this.vel.y))))
+    }
+
+    this.acc.add(plane.gravity);
+
+    this.vel.add(this.acc);
     this.pos.add(this.vel);
-    this.vel.mult(zero);
+    this.acc.mult(zero);
+
+    // Constrain barrel onto the screen (they can fall off the bottom though)
+    if (this.pos.x < 0) {
+      this.pos.x = 0;
+    }
+    if (this.pos.x + this.w > width) {
+      this.pos.x = width - this.w;
+    }
+    if (this.pos.y < 0) {
+      this.pos.y = 0;
+      this.vel.y = 0;
+    }
+
+
+    if (this.vel.x < 1 && this.vel.x > -1 && this.vel.x != 0 && this.grounded) {
+      this.vel.x = 0;
+    }
+
+    this.grounded = false;
+    for (object of plane.objects) {
+      object.collision(this);
+    }
+    
+
   }
 
   // I would love to have this inherit from the Stage collision somehow but I'm not sure how to efficiently do that while letting it move
   collision(a) {
+    if (a == this) {return;}
     // a is a moveable object or a player
     // top side
     if (a.pos.y + a.h > this.pos.y && a.pos.y + a.h < this.pos.y + 1 + a.vel.y && a.pos.x + a.w > this.pos.x && a.pos.x < this.pos.x + this.w) {
@@ -338,14 +383,12 @@ class Barrel extends Default {
       a.pos.y = this.pos.y + this.h;
     }
     // right side
-    if (a.pos.x < this.pos.x + this.w && a.pos.x > this.pos.x + this.w + a.vel.x - 1 && a.pos.y < this.pos.y + this.h && a.pos.y + a.h > this.pos.y) {
-      a.vel.x = (this.vel.x + a.vel.x)*0.75;
+    if (a.pos.x < this.pos.x + this.w && a.pos.x > this.pos.x + this.w + a.vel.x - 10 && a.pos.y < this.pos.y + this.h && a.pos.y + a.h > this.pos.y) {
       this.vel.x = a.vel.x;
       a.pos.x = this.pos.x + this.w;
     }
     // left side
-    if (a.pos.x + a.w > this.pos.x && a.pos.x + a.w < this.pos.x + a.vel.x + 1 && a.pos.y < this.pos.y + this.h && a.pos.y + a.h > this.pos.y) {
-      a.vel.x = (this.vel.x + a.vel.x)*0.75;
+    if (a.pos.x + a.w > this.pos.x && a.pos.x + a.w < this.pos.x + a.vel.x + 10 && a.pos.y < this.pos.y + this.h && a.pos.y + a.h > this.pos.y) {
       this.vel.x = a.vel.x;
       a.pos.x = this.pos.x - a.w;
     }

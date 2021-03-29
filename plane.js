@@ -2,6 +2,12 @@ function Plane(player, objects, gravity, img, texts) {
   this.player = player;
   this.objects = objects;
   this.objects.push(player); // Player is an object, this is useful for streamlining some collision code
+  // this.moveables = [];
+  // for (object of this.objects) {
+  //   if (typeof(object.vel) != "undefined") {
+  //     this.moveables.push(object);
+  //   }
+  // }
   this.gravity = gravity;
   this.level;
   this.img = new Image();

@@ -75,6 +75,7 @@ function Player(x, y, img, keybinds) {
     this.interactables = [];
     //this.friction = zero;
     // collision
+    this.grounded = false;
     for (object of plane.objects) {
       object.collision(this);
     }
@@ -89,8 +90,9 @@ function Player(x, y, img, keybinds) {
 
   }
 
+  // idk if this will be neccessary, right now its just present to prevent the game from calling a function that doesn't exist
   this.collision = function(a) {
-
+    
   }
 
   this.draw = function() {
