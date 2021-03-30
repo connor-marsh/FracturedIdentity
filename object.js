@@ -277,10 +277,18 @@ class PhaseLever extends Interactable {
 class TimerSwitch extends Interactable {
 
   constructor(x, y, linkedObjects, time) {
-    super(x, y, 20, 20, "Assets/flask.png");
+    super(x, y, 25, 25, "Assets/flask.png");
     this.time = time * fps;
     this.timeLeft = this.time;
     this.on = true;
+    this.imgsOn = [];
+    this.imgsOff = [];
+    for (let i = 1; i <= 5; i++) {
+      this.imgsOn.push(new Image);
+      this.imgsOn[i-1].src = "Assets/Timer/Timer_On-" + i + ".png";
+      this.imgsOff.push(new Image);
+      this.imgsOff[i-1].src = "Assets/Timer/Timer_Off-" + i + ".png";
+    }
 
     this.linkedObjects = linkedObjects;
   }
@@ -304,7 +312,16 @@ class TimerSwitch extends Interactable {
     this.on = !this.on;
   }
 
-
+  draw() {
+    super.draw();
+    if (this.on) {
+      ctx.drawImage(this.imgsOn[this.time/fps], this.pos.x, this.pos.y, this.w, this.h);
+    }
+    else {
+      ctx.drawImage(this.imgsOff[this.time/fps], this.pos.x, this.pos.y, this.w, this.h);
+    }
+    
+  }
 
 }
 
