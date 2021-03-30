@@ -403,3 +403,33 @@ class Barrel extends Default {
   }
 
 }
+
+class Puddle extends Object {
+
+  constructor(x, y) {
+    super(x, y-4, 60, 10, "green");
+    this.imgs = [new Image(), new Image()];
+    this.imgs[0].src = "Assets/puddle1.png";
+    this.imgs[1].src = "Assets/puddle2.png";
+    this.animationFrame = 0;
+    this.advanceFrame = 0;
+  }
+
+  draw() {
+    ctx.drawImage(this.imgs[this.animationFrame], this.pos.x, this.pos.y, this.w, this.h);
+    this.advanceFrame++;
+    if (this.advanceFrame % 6 == 0) {
+      this.animationFrame++;
+    }
+    if (this.animationFrame == this.imgs.length) {
+      this.animationFrame = 0;
+    }
+  }
+
+  collision(a) {
+    if (super.collision(a)) {
+      a.dead = true;
+    }
+  }
+
+}
