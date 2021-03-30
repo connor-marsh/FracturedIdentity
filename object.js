@@ -63,11 +63,17 @@ class Stage extends Object {
 
   draw() {
     this.tileSize = 120; // this is just because of how noah made the arts, make it sample a larger texture for finished version
+    
+    //ctx.drawImage(this.underground, this.pos.x, this.pos.y, this.w, this.h);
+    
+
     for (let i = 0; i < this.w/this.tileSize; i++) {
       for (let j = 0; j < this.h/this.tileSize; j++) {
-        ctx.drawImage(this.underground, this.pos.x + i*this.tileSize, this.pos.y + j*this.tileSize, (this.tileSize < this.w) ? this.tileSize : this.w, (this.tileSize < this.h) ? this.tileSize : this.h);
+        ctx.drawImage(this.underground, this.pos.x + i*this.tileSize, this.pos.y + j*this.tileSize, (this.tileSize < this.w-i*this.tileSize) ? this.tileSize : this.w-i*this.tileSize, (this.tileSize < this.h-j*this.tileSize) ? this.tileSize : this.h-j*this.tileSize);
       }
     }
+    // ctx.fillStyle = "rgba(255, 0, 0, 0.2)";
+    // ctx.fillRect(this.pos.x, this.pos.y, this.w, this.h);
     
     
     // theoretical tiled floor solution
@@ -307,6 +313,9 @@ class PressurePlate extends Object {
   constructor(x, y, linkId) {
     super(x, y - 12, 30, 12, "pink");
     this.linkId = linkId;
+    this.imgs = [new Image(), new Image()];
+    this.imgs[0].src = "Assets/Pressure_Plate-Off.png";
+    this.imgs[1].src = "Assets/Pressure_Plate-On.png";
     this.pressed = false;
   }
 
@@ -336,6 +345,10 @@ class PressurePlate extends Object {
       this.pressed = beenPressed;
     }
 
+  }
+
+  draw() {
+    ctx.drawImage(this.imgs[this.pressed?1:0], this.pos.x, this.pos.y, this.w, this.h);
   }
 
 }
