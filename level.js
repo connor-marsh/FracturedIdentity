@@ -6,8 +6,8 @@ Sample level
       var objects2 = [];
       var texts1 = [];
       var texts2 = [];
-      var plane1 = new Plane(new Player(0, 0, "Assets/Player1.png", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
-      var plane2 = new Plane(new Player(0, 0, "Assets/Player2.png", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
+      var plane1 = new Plane(new Player(0, 0, "Assets/Player1", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
+      var plane2 = new Plane(new Player(0, 0, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
       return new Level(plane1, plane2);
     }
 */
@@ -21,13 +21,13 @@ var levels = [
     gen: function () {
       var levelNum = 0;
 
-      var objects1 = [new Default(50, 500, 400, 200, "green", new Vector(1, 0)), new PhasedIn(450, 520, 240, 100, 0), new PlaneSwitch(80, 500), new Desk(300, 500), new Shelf(240, 500), new TimerSwitch(100, 450, [], 2), new PressurePlate(350, 500, 0)];
+      var objects1 = [new Default(50, 500, 400, 200, "green", new Vector(1, 0)), new PhasedIn(450, 520, 240, 100, 0), new PlaneSwitch(80, 500), new Desk(300, 500), new Shelf(240, 500), new TimerSwitch(100, 450, [], 2), new PressurePlate(350, 500, 0), new Puddle(500, 520)];
       var objects2 = [new Default(50, 200, 400, 100, "green", new Vector(1, 0)), new Default(150, 170, 40, 30),  new Barrel(300, 200), new Barrel(350, 200), new Default(460, 500, 300, 50, "green", new Vector(1, 0)), new PlaneSwitch(80, 200), new PlaneSwitch(560, 500), new Platform(470, 400, 100, 5, "Assets/platform.png", new Vector(1, 0)), new PressurePlate(550, 500, 0), new Barrel(600, 500), new PhaseLever(700, 500, 0)];
       objects1[5].linkedObjects.push(objects2[objects2.length-1]);
       var texts1 = [];
       var texts2 = [];
-      var plane1 = new Plane(new Player(100, 100, "Assets/Player1.png", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
-      var plane2 = new Plane(new Player(100, 100, "Assets/Player2.png", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, .7), "Assets/plane2Background.png", texts2);
+      var plane1 = new Plane(new Player(100, 100, "Assets/Player1", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
+      var plane2 = new Plane(new Player(100, 100, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, .7), "Assets/plane2Background.png", texts2);
       
       return new Level(plane1, plane2, levelNum);
     }
@@ -35,14 +35,14 @@ var levels = [
   {
     gen: function () {
       var levelNum = 1;
-      var objects1 = [new Default(0, 600, 400, 100), new Default(400, 580, 1000, 120), new Desk(600, 580), new Shelf(660, 580), new PlaneSwitch(1300, 580)];
+      var objects1 = [new Default(0, 630, 400, 100), new Default(400, 580, 1000, 120), new Desk(600, 580), new Shelf(660, 580), new PlaneSwitch(1300, 580)];
       var objects2 = [new Default(0, 600, 1400, 100), new PlaneSwitch(80, 600), new Goal(300, 600)];
 
       var texts1 = [new Text(150, 500, 15, "Left Arrow to move left"), new Text(150, 530, 15, "Right Arrow to move right"), new Text(400, 500, 15, "Up Arrow to jump"), new Text(650, 430, 15, "Down Arrow to fall through"), new Text(650, 460, 15, "Furniture items and platforms"), new Text(1100, 400, 15, "Press Period (.) to interact with objects when they are highlighted"), new Text(1100, 430, 15, "Interacting with this neuralyzer will send your conscious"), new Text(1100, 460, 15, "to a different plane and a different body")];
       var texts2 = [new Text(width / 2, 300, 30, "Now enter the capsule (and press .) to go to the next level!")];
 
-      var plane1 = new Plane(new Player(100, 540, "Assets/Player1.png", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
-      var plane2 = new Plane(new Player(100, 100, "Assets/Player2.png", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
+      var plane1 = new Plane(new Player(100, 540, "Assets/Player1", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
+      var plane2 = new Plane(new Player(100, 100, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
       return new Level(plane1, plane2, levelNum);
     }
   },
@@ -53,8 +53,8 @@ var levels = [
       var objects2 = [new Default(0, 600, 1400, 100), new PlaneSwitch(100, 600), new PhasedIn(250, 400, 100, 200, 1), new PlaneSwitch(450, 600), new Desk(430, 600), new PhaseLever(550, 600, 2), new PhasedIn(600, 400, 100, 200, 3), new Goal(1000, 600), new Shelf(1200, 600), new Shelf(1242, 600), new Shelf(1284, 600), new Shelf(1326, 600)];
       var texts1 = [new Text(300, 300, 15, "There's a wall blocking your path!"), new Text(300, 330, 15, "Pull this lever to phase it out of existence"), new Text(300, 360, 15, "All phase levers have one or more objects they are linked to"), new Text(300, 390, 15, "and that lever will control if the objects are phased in or out"), new Text(600, 500, 15, "Look at the image on the top right"), new Text(600, 530, 15, "to see a miniature version of the other plane")];
       var texts2 = [new Text(500, 350, 15, "Phase levers can be linked to objects on different planes")];
-      var plane1 = new Plane(new Player(100, 540, "Assets/Player1.png", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
-      var plane2 = new Plane(new Player(100, 540, "Assets/Player2.png", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
+      var plane1 = new Plane(new Player(100, 540, "Assets/Player1", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
+      var plane2 = new Plane(new Player(100, 540, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
       return new Level(plane1, plane2, levelNum);
     }
   },
@@ -65,8 +65,8 @@ var levels = [
       var objects2 = [new Default(0, 100, 400, 100), new PlaneSwitch(100, 100), new PhaseLever(200, 100, 0), new PhasedIn(250, 0, 20, 100, 1), new PhaseLever(290, 100, 1), new PlaneSwitch(340, 100)];
       var texts1 = [new Text(200, 30, 15, "Alright have fun with this level..."), new Text(200, 230, 15, "If you get stuck you can"), new Text(200, 260, 15, "press pause and then restart"), new Text(1100, 550, 15, "Hey you made it! Took you long enough")];
       var texts2 = [new Text(width/2, height/2, 15, "Note that some objects can have their phase inverted, or in other words they are phased out when the phase lever is off and vice versa.")];
-      var plane1 = new Plane(new Player(100, 40, "Assets/Player1.png", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
-      var plane2 = new Plane(new Player(100, 40, "Assets/Player2.png", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
+      var plane1 = new Plane(new Player(100, 40, "Assets/Player1", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
+      var plane2 = new Plane(new Player(100, 40, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
       return new Level(plane1, plane2, levelNum);
     }
   }
@@ -79,8 +79,8 @@ levels.push({
       var objects2 = [new Default(0, 600, 1400, 100)];
       var texts1 = [new Text(width/2, height/2, 15, "That's all the levels that have been developed so far. More puzzle mechanics, platforming, and levels coming in the near future!")];
       var texts2 = [];
-      var plane1 = new Plane(new Player(100, 40, "Assets/Player1.png", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
-      var plane2 = new Plane(new Player(100, 40, "Assets/Player2.png", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
+      var plane1 = new Plane(new Player(100, 40, "Assets/Player1", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
+      var plane2 = new Plane(new Player(100, 40, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
       return new Level(plane1, plane2, levelNum);
     }
   });
