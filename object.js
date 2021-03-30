@@ -315,10 +315,10 @@ class TimerSwitch extends Interactable {
   draw() {
     super.draw();
     if (this.on) {
-      ctx.drawImage(this.imgsOn[this.time/fps], this.pos.x, this.pos.y, this.w, this.h);
+      ctx.drawImage(this.imgsOn[this.time/fps-1], this.pos.x, this.pos.y, this.w, this.h);
     }
     else {
-      ctx.drawImage(this.imgsOff[this.time/fps], this.pos.x, this.pos.y, this.w, this.h);
+      ctx.drawImage(this.imgsOff[this.time/fps-1], this.pos.x, this.pos.y, this.w, this.h);
     }
     
   }

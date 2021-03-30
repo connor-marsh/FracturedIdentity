@@ -14,17 +14,20 @@ var height = ctx.canvas.height
 var draw;
 var fps = 60;
 var zero = new Vector(0, 0);
+var firstClick = true;
+var firstPlay = true;
 // Eventually Ill give planes background images and players images/spritesheets
 
-
+var mainSong = new Audio();
+mainSong.src = "Assets/MainSong.mp3";
 
 //["A", "D", "W", "S", "E"]
 
-var homeScreen = new Screen([new Text(width/2, 200, 50, "Fractured Identity"), new Text(width/2, 250, 20, "2061-902's video game")], [new Button(width/2-50, height/2-30, 100, 60, function(){screen=levelSelect}, "orange", new Text(0, 0, 13, "Level Select"))], "Assets/plane1Background.png");
+var homeScreen = new Screen([new Text(width/2, 200, 50, "Fractured Identity"), new Text(width/2, 250, 20, "2061-902's video game")], [new Button(width/2-50, height/2-30, 100, 60, function(){if (firstPlay){screen=new StoryScreen();firstPlay=false;}else{screen=levelSelect;}}, "orange", new Text(0, 0, 13, "Level Select"))], "Assets/plane1Background.png");
 var levelSelect = new Screen([], [new Button(10, 10, 100, 40, function(){screen=homeScreen}, "orange", new Text(0, 0, 13, "Home Screen"))], "Assets/plane2Background.png");
-// Level buttons (level 0 is testing level)
-for (let i = 0; i < levels.length; i++) {
-  levelSelect.buttons.push(new Button(200 + (i-1)%5*100, 200 + 100*Math.floor((i-1)/5), 50, 50, function(){levelScreen.level = levels[i].gen(); screen=levelScreen;}, "orange", new Text(0, 0, 15, i)));
+// Level buttons (level 0 is testing level) make i = 0 to access testing level
+for (let i = 1; i < levels.length; i++) {
+  levelSelect.buttons.push(new Button(200 + (i-1)%10*100, 200 + 100*Math.floor((i-1)/10), 50, 50, function(){levelScreen.level = levels[i].gen(); screen=levelScreen;}, "orange", new Text(0, 0, 15, i)));
 }
 var levelScreen = new LevelScreen();
 var screen = homeScreen;
@@ -57,6 +60,12 @@ var mousex;
 var mousey;
 document.addEventListener("mousedown", function(e) {
   e.preventDefault();
+
+  if (firstClick) {
+    mainSong.play();
+    firstClick = false;
+  }
+
   mousex = e.pageX - ctx.canvas.offsetLeft;
   mousey = e.pageY - ctx.canvas.offsetTop;
   mouseisdown=true;
@@ -73,9 +82,11 @@ document.addEventListener("mouseup", function(e) {
 
 
 function start() {
+  //mainSong.play();
   draw = setInterval(frame, 1000/fps);
 }
 function stop() {
+  //mainSong.pause();
   clearInterval(draw)
 }
-start()
+start();

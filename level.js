@@ -39,7 +39,7 @@ var levels = [
       var objects2 = [new Default(0, 600, 1400, 100), new PlaneSwitch(80, 600), new Goal(300, 600)];
 
       var texts1 = [new Text(150, 500, 15, "Left Arrow to move left"), new Text(150, 530, 15, "Right Arrow to move right"), new Text(400, 500, 15, "Up Arrow to jump"), new Text(650, 430, 15, "Down Arrow to fall through"), new Text(650, 460, 15, "Furniture items and platforms"), new Text(1100, 400, 15, "Press Period (.) to interact with objects when they are highlighted"), new Text(1100, 430, 15, "Interacting with this neuralyzer will send your conscious"), new Text(1100, 460, 15, "to a different plane and a different body")];
-      var texts2 = [new Text(width / 2, 300, 30, "Now enter the capsule (and press .) to go to the next level!")];
+      var texts2 = [new Text(width / 2, 300, 30, "Now enter the capsule (and press .) to go to the next lab!")];
 
       var plane1 = new Plane(new Player(100, 540, "Assets/Player1", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
       var plane2 = new Plane(new Player(100, 100, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
@@ -69,6 +69,43 @@ var levels = [
       var plane2 = new Plane(new Player(100, 40, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
       return new Level(plane1, plane2, levelNum);
     }
+  },
+  {
+    gen: function () {
+      var levelNum = 4;
+      var objects1 = [new Default(0, 200, 600, 200), new Barrel(130, 200), new Default(300, 100, 100, 100), new Barrel(500, 200), new Default(625, 500, 775, 200), new PressurePlate(1000, 500, 0), new PlaneSwitch(1200, 500)];
+      var objects2 = [new Default(0, 500, 1400, 200), new PhasedIn(200, 400, 50, 100, 0), new Puddle(500, 500), new Goal(800, 500), new PlaneSwitch(100, 500)];
+      var texts1 = [new Text(200, 75, 15, "Barrels can be moved and jumped on"), new Text(900, 400, 15, "Pressure plates can phase objects when pressed")];
+      var texts2 = [new Text(500, 400, 15, "Toxic Sludge will melt you instantly")];
+      var plane1 = new Plane(new Player(50, 140, "Assets/Player1", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
+      var plane2 = new Plane(new Player(100, 440, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
+      return new Level(plane1, plane2, levelNum);
+    }
+  },
+  {
+    gen: function () {
+      var levelNum = 5;
+      var objects1 = [new Default(0, 500, 1400, 200), new Shelf(200, 500), new Shelf(200, 435), new Shelf(200, 370), new Shelf(200, 305), new Shelf(158, 500), new Shelf(158, 435), new Shelf(158, 370), new Shelf(158, 305), new Shelf(158, 240), new Shelf(200, 240), new Default(275, 225, 100, 25), new Barrel(325, 225), new Default(275, 100, 100, 25), new Barrel(325, 100), new Default(275, 350, 100, 25), new Barrel(325, 350), new Puddle(800, 500), new Puddle(830, 500), new Puddle(860, 500),new Puddle(890, 500), new Puddle(920, 500), new Goal(1100, 500)];
+      var objects2 = [new Default(0, 500, 1400, 200)];
+      var texts1 = [new Text(800, 300, 15, "Not every lab requires you to use both bodies!")];
+      var texts2 = [];
+      var plane1 = new Plane(new Player(50, 440, "Assets/Player1", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
+      var plane2 = new Plane(new Player(100, 440, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
+      return new Level(plane1, plane2, levelNum);
+    }
+  },
+  {
+    gen: function () {
+      var levelNum = 6;
+      var objects1 = [new Default(0, 500, 1400, 200), new Shelf(200, 500), new Shelf(200, 435), new Shelf(200, 370), new Shelf(200, 305), new Shelf(158, 500), new Shelf(158, 435), new Shelf(158, 370), new Shelf(158, 305), new Shelf(158, 240), new Shelf(200, 240), new Default(275, 225, 100, 25), new Barrel(325, 225), new Barrel(350, 225), new Default(275, 100, 100, 25), new Barrel(325, 100), new Barrel(350, 100), new Default(275, 350, 100, 25), new Barrel(325, 350), new Barrel(350, 350), new Default(500, 325, 100, 25), new PressurePlate(550, 325, 0), new PlaneSwitch(900, 500)];
+      var objects2 = [new PlaneSwitch(100, 500), new Default(0, 500, 1400, 200), new PhasedIn(200, 400, 50, 100, 0), new Goal(700, 500), new PhaseLever(900, 500, 1), new Default(300, 450, 50, 50), new PhasedIn(350, 450, 125, 25, 1), new Puddle(350, 500), new Puddle(380, 500), new Puddle(410, 500), new Default(475, 450, 50, 50)];
+      objects2.push(new TimerSwitch(800, 475, [objects2[4]], 1));
+      var texts1 = [new Text(600, 100, 15, "A twist on the previous lab"), new Text(600, 140, 15, "Try stacking barrels")];
+      var texts2 = [new Text(700, 300, 15, "Timer switches can power on and off anything at a set interval"), new Text(700, 340, 15, "You can also shut them off by interacting with them except this one is out of reach")];
+      var plane1 = new Plane(new Player(50, 440, "Assets/Player1", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
+      var plane2 = new Plane(new Player(100, 440, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
+      return new Level(plane1, plane2, levelNum);
+    }
   }
 ];
 // This is the final level to prevent people from over playing unless I add a game ending sequence
@@ -77,7 +114,7 @@ levels.push({
       var levelNum = levels.length;
       var objects1 = [new Default(0, 600, 1400, 100)];
       var objects2 = [new Default(0, 600, 1400, 100)];
-      var texts1 = [new Text(width/2, height/2, 15, "That's all the levels that have been developed so far. More puzzle mechanics, platforming, and levels coming in the near future!")];
+      var texts1 = [new Text(width/2, height/2, 15, "That's all the levels that have been developed so far. More puzzle mechanics, platforming, and levels coming in the near future!"), new Text(width/2, height/2 + 40, 15, "The possibilities with these puzzles are endless!")];
       var texts2 = [];
       var plane1 = new Plane(new Player(100, 40, "Assets/Player1", ["%", "'", "&", "(", "¾"]), objects1, new Vector(0, 0.7), "Assets/plane1Background.png", texts1);
       var plane2 = new Plane(new Player(100, 40, "Assets/Player2", ["%", "'", "&", "(", "¾"]), objects2, new Vector(0, 0.7), "Assets/plane2Background.png", texts2);
