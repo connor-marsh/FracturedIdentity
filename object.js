@@ -25,6 +25,12 @@ class Stage extends Object {
   constructor(x, y, w, h, bg, friction) {
     super(x, y, w, h, bg);
     this.friction = friction;
+    this.underground = new Image();
+    this.underground.src = "Assets/underground.png";
+    this.floor = new Image();
+    this.floor.src = "Assets/Tile_Floor.png";
+    this.floorEnd = new Image();
+    this.floorEnd.src = "Assets/Tile_Floor_Break.png";
   }
 
   collision(a) {
@@ -53,6 +59,26 @@ class Stage extends Object {
       a.pos.x = this.pos.x - a.w;
       a.animation = "Pushing";
     }
+  }
+
+  draw() {
+    this.tileSize = 120; // this is just because of how noah made the arts, make it sample a larger texture for finished version
+    for (let i = 0; i < this.w/this.tileSize; i++) {
+      for (let j = 0; j < this.h/this.tileSize; j++) {
+        ctx.drawImage(this.underground, this.pos.x + i*this.tileSize, this.pos.y + j*this.tileSize, (this.tileSize < this.w) ? this.tileSize : this.w, (this.tileSize < this.h) ? this.tileSize : this.h);
+      }
+    }
+    
+    
+    // theoretical tiled floor solution
+    // for (let i = 0; i < this.w/40; i++) {
+      
+    //   ctx.drawImage(this.floor, this.pos.x + i*40, this.pos.y, 40, this.h*0.25);
+    //   ctx.drawImage(this.underground, this.pos.x + i*40, this.pos.y+this.h*0.25, 40, this.h*0.75);
+    // }
+    // ctx.drawImage(this.floorEnd, 20, 0, 20, 40, this.pos.x, this.pos.y, 20, this.h*0.25);
+    // ctx.drawImage(this.floorEnd, 0, 0, 20, 40, this.pos.x+this.w-20, this.pos.y, 20, this.h*0.25);
+    
   }
 
 }
