@@ -16,6 +16,7 @@ var fps = 60;
 var zero = new Vector(0, 0);
 var firstClick = true;
 var firstPlay = true;
+var mouseControls = false;
 // Eventually Ill give planes background images and players images/spritesheets
 
 var mainSong = new Audio();

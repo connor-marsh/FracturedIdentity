@@ -33,6 +33,7 @@ class Screen {
         button.onClick();
       }
     }
+    
   }
 
 }
@@ -56,6 +57,51 @@ class LevelScreen extends Screen {
       text.draw();
     }
     
+  }
+  mouseup(x, y, prevX, prevY) {
+    super.mouseup(x, y, prevX, prevY);
+    if (mouseControls) {
+    if (x < 500) {
+      if (this.level.front1) {
+        this.level.plane1.player.left = !this.level.plane1.player.left;
+      }
+      else {
+        this.level.plane2.player.left = !this.level.plane2.player.left;
+      }
+    }
+    if (x > 900) {
+      if (this.level.front1) {
+        this.level.plane1.player.right = !this.level.plane1.player.right; 
+      }
+      else {
+        this.level.plane2.player.right = !this.level.plane2.player.right;
+      }
+    }
+    if (y < 250) {
+      if (this.level.front1) {
+        this.level.plane1.player.jump = !this.level.plane1.player.jump;
+      }
+      else {
+        this.level.plane2.player.jump = !this.level.plane2.player.jump;
+      }
+    }
+    if (y > 600) {
+      if (this.level.front1) {
+        this.level.plane1.player.crouch = !this.level.plane1.player.crouch;
+      }
+      else {
+        this.level.plane2.player.crouch = !this.level.plane2.player.crouch;
+      }
+    }
+    if (x > 500 && x < 900 && y > 250 && y < 600) {
+      if (this.level.front1) {
+        this.level.plane1.player.interact = !this.level.plane1.player.interact;
+      }
+      else {
+        this.level.plane2.player.interact = !this.level.plane2.player.interact;
+      }
+    }
+    }
   }
 }
 
